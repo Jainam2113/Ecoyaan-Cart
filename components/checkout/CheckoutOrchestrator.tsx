@@ -28,37 +28,44 @@ export default function CheckoutOrchestrator({ initialCart }: { initialCart: Car
         style={{ background: "rgba(255,255,255,0.97)", backdropFilter: "blur(12px)" }}
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2.5 shrink-0">
-            <div className="w-9 h-9 rounded-xl bg-[#1a472a] flex items-center justify-center shadow-sm">
+          {/* Logo */}
+          <a href="/shop" className="flex items-center gap-2.5 shrink-0 group">
+            <div className="w-9 h-9 rounded-xl bg-[#1a472a] flex items-center justify-center shadow-sm group-hover:bg-[#145222] transition-colors">
               <Leaf className="w-5 h-5 text-white" />
             </div>
             <div className="hidden sm:block">
               <p className="font-bold text-[#1a472a] text-base leading-none">Ecoyaan</p>
               <p className="text-[10px] text-gray-400 leading-none mt-0.5">Secure Checkout</p>
             </div>
-          </div>
+          </a>
 
-          <StepIndicator current={state.step} />
+          {/* Step Indicator */}
+          {state.step !== "success" && (
+            <StepIndicator current={state.step} />
+          )}
 
-          <div className="hidden sm:flex items-center gap-1 text-xs text-gray-400 shrink-0">
+          {/* SSL badge */}
+          <div className="hidden sm:flex items-center gap-1.5 text-xs text-gray-400 shrink-0">
             <ShieldCheck className="w-3.5 h-3.5 text-[#1a472a]" />
-            <span>SSL Secured</span>
+            <span className="font-medium">SSL Secured</span>
           </div>
         </div>
       </header>
 
       {/* ── Main ── */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 pb-16">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
         {Screen}
       </main>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-gray-100 bg-white py-4">
-        <p className="text-center text-xs text-gray-400">
-          © {new Date().getFullYear()} Ecoyaan · Sustainable Shopping ·{" "}
-          <span className="text-[#1a472a] font-semibold">🌱 Carbon Neutral Delivery</span>
-        </p>
-      </footer>
+      {state.step === "success" && (
+        <footer className="border-t border-gray-100 bg-white py-4 mt-8">
+          <p className="text-center text-xs text-gray-400">
+            © {new Date().getFullYear()} Ecoyaan · Sustainable Shopping ·{" "}
+            <span className="text-[#1a472a] font-semibold">🌱 Carbon Neutral Delivery</span>
+          </p>
+        </footer>
+      )}
     </div>
   );
 }
