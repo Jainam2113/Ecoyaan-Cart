@@ -35,6 +35,12 @@ export interface ShippingAddress {
   state: string;
 }
 
+// A saved address has a unique id + optional label (Home, Work, etc.)
+export interface SavedAddress extends ShippingAddress {
+  id: string;
+  label: string; // "Home" | "Work" | "Other"
+}
+
 // ─── Payment ──────────────────────────────────────────────────────────────────
 
 export type PaymentMethod = "upi" | "card" | "netbanking" | "cod";
@@ -72,6 +78,7 @@ export interface CheckoutState {
   step: CheckoutStep;
   cart: CartData | null;
   shippingAddress: ShippingAddress | null;
+  savedAddresses: SavedAddress[];
   paymentMethod: PaymentMethod | null;
   order: Order | null;
   isLoading: boolean;
